@@ -33,7 +33,22 @@ class UserRepository{
             });
             return user;
         } catch (error) {
-            console.log("Something went wrong");
+            console.log("Something went wrong in repo layer");
+            throw error;
+        }
+     }
+
+     async getByEmail(userEmail){
+        try {
+            const user = await User.findOne({
+                where : {
+                    email : userEmail
+                }
+            })
+            return user;
+            
+        } catch (error) {
+            console.log("Something went wrong in repo layer");
             throw error;
         }
      }
