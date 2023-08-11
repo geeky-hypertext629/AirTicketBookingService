@@ -46,7 +46,6 @@ class UserService {
             {
                 throw {error : 'Invalid Token'}
             }
-
             const user = await this.userRepository.getById(response.id);
             if(!user)
             {
@@ -86,6 +85,16 @@ class UserService {
             console.log("Something went wrong in password comparison");
             throw error;
 
+        }
+    }
+
+    isAdmin(userId){
+        try {
+            return this.userRepository.isAdmin(userId);
+            
+        } catch (error) {
+            console.log("Something went wrong in password comparison");
+            throw error;
         }
     }
 }
