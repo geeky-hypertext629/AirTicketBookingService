@@ -1,4 +1,6 @@
 // const { where } = require('sequelize');
+// const {  ValidationError } = require('sequelize');
+const ValidationError = require('../utils/validation-error');
 const {User,Role} = require('../models/index');
 
 
@@ -9,9 +11,13 @@ class UserRepository{
             return user;
 
         } catch (error) {
-            console.log("Something went wrong");
+            if(error.name=='SequelizeValidationError'){
+
+                throw new ValidationError(error);
+            }
+            console.log("Something went wrong in repo layer");
             throw error;
-        }
+        } 
     }
 
     async destroy(userId){
@@ -62,7 +68,7 @@ class UserRepository{
                     name : 'ADMIN',
                 }
             });
-            return user.hasRole(adminRole);
+            return await user.hasRole(adminRole);
         } catch (error) {
             console.log("Something went wrong in repo layer");
             throw error;
