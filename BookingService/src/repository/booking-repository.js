@@ -18,6 +18,10 @@ class BookingRepository{
             StatusCodes.INTERNAL_SERVER_ERROR);
         }
     }
+
+    async update(data){
+
+    }
 }
 
 module.exports = BookingRepository;
